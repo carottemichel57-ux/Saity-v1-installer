@@ -1,0 +1,16 @@
+SAITY V1 INSTALLER - mode d'emploi (iPhone, sans iSH)
+
+1) Cree un compte sur github.com (gratuit) depuis Safari.
+2) Cree un nouveau repository (bouton "+", "New repository"), nom : saity-installer. Mets-le en Public.
+3) Dans le repo : "Add file" > "Upload files". Envoie ces 7 fichiers :
+   main.c, CMakeLists.txt, template.xml, icon0.png, bg0.png, startup.png, vitacraft.suprx
+   puis "Commit changes".
+4) "Add file" > "Create new file". Dans le nom, tape exactement :
+   .github/workflows/build.yml
+   Colle dedans le contenu du fichier build.yml, puis "Commit changes".
+5) Onglet "Actions" : le build demarre tout seul (2-4 min). Attends la coche verte.
+6) Clique sur le build termine > en bas "Artifacts" > Saity-V1-Installer.
+   Ca telecharge un zip : dedans il y a saity_installer.vpk
+7) Installe le .vpk avec VitaShell sur la Vita. Lance la bulle "Saity V1 Installer By Saythhh".
+
+Si le build est rouge : ouvre-le, copie l'erreur et envoie-la moi.
