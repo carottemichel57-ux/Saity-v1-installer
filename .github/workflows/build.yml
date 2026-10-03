@@ -2,6 +2,8 @@ name: Build VPK
 on:
   push:
   workflow_dispatch:
+permissions:
+  contents: write
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,3 +18,7 @@ jobs:
         with:
           name: Saity-V1-Installer
           path: build/*.vpk
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0
+          files: build/*.vpk
