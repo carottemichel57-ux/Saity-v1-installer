@@ -17,6 +17,16 @@ set(VITA_VERSION  "01.00")
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wl,-q -Wall -O2 -std=gnu99")
 
+# vita2d a besoin de sceSharedFb* et sceAppMgrGetBudgetInfo :
+# on cherche automatiquement quelle lib stub les contient
+execute_process(
+  COMMAND sh -c "grep -l -a -e sceSharedFbBegin -e sceAppMgrGetBudgetInfo $ENV{VITASDK}/arm-vita-eabi/lib/*_stub*.a"
+  OUTPUT_VARIABLE EXTRA_STUBS
+  OUTPUT_STRIP_TRAILING_WHITESPACE
+  ERROR_QUIET)
+string(REPLACE "\n" ";" EXTRA_STUBS "${EXTRA_STUBS}")
+message(STATUS "EXTRA_STUBS = ${EXTRA_STUBS}")
+
 add_executable(${PROJECT_NAME} main.c)
 
 target_link_libraries(${PROJECT_NAME}
@@ -26,12 +36,11 @@ target_link_libraries(${PROJECT_NAME}
   SceGxm_stub
   SceSysmodule_stub
   SceCtrl_stub
-  SceAppMgr_stub
-  SceSharedFb_stub
   ScePgf_stub
   ScePvf_stub
   SceCommonDialog_stub
   ScePower_stub
+  ${EXTRA_STUBS}
   freetype
   png
   jpeg
